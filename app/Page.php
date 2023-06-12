@@ -4,14 +4,12 @@ require_once(__DIR__ . '/Blog.php');
 
 class Page
 {
-    private $pdo;               // PDOインスタンス
-    private $base;              // 'blog' or 'works'（どちらのページ用か）
+    private $pdo;               // PDOインスタンス（どちらのページ用か）
     private $items_per_page;    // 1ページに表示するアイテム数
 
-    public function __construct($pdo, $base, $items_per_page)
+    public function __construct($pdo, $items_per_page)
     {
         $this->pdo = $pdo;
-        $this->base = $base;
         $this->items_per_page = $items_per_page;
     }
 
@@ -28,8 +26,8 @@ class Page
         // SQLからデータを取得
         $items = Blog::getBlogsByPage($this->pdo, $current_page, $this->items_per_page); // ブログデータ取得
         $total_items = Blog::getTotal($this->pdo); // 総アイテム数
-
         $total_pages = ceil($total_items / $this->items_per_page); // 総ページ数
+
         // ページナビに表示する数値の配列を取得
         $around_pages = [];
         if ($current_page >= 1 && $current_page <= $total_pages) {

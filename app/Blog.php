@@ -20,10 +20,10 @@ class Blog
                             FROM BLOGS) B
                             WHERE B.RN > :start_row AND B.RN <= :end_row";
         $stmt = $pdo->prepare($sql);
-        $stmt->bindValue('start_row', $start_row, \PDO::PARAM_INT);
-        $stmt->bindValue('end_row', $end_row, \PDO::PARAM_INT);
+        $stmt->bindValue('start_row', $start_row, PDO::PARAM_INT);
+        $stmt->bindValue('end_row', $end_row, PDO::PARAM_INT);
         $stmt->execute();
-        $blogs = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $blogs;
     }
 
@@ -38,7 +38,7 @@ class Blog
         $sql = "SELECT COUNT(*) AS count FROM BLOGS";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
-        $total = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $total = $stmt->fetch(PDO::FETCH_ASSOC);
         return $total["count"];
     }
 }
